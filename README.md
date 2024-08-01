@@ -1,4 +1,4 @@
-# EazyMVC ![Static Badge](https://img.shields.io/badge/php-7.4%5E-blue) ![Static Badge](https://img.shields.io/badge/beta-v1.0.1-orange)
+# EazyMVC ![Static Badge](https://img.shields.io/badge/php-7.4%5E-blue) ![Static Badge](https://img.shields.io/badge/beta-v1.0.1-orange) ![CI](https://github.com/Fattwen/EazyMVC/actions/workflows/EazyMVC.yml/badge.svg)
 基於 [Laravel Eloquent ORM](https://laravel.com/docs/11.x/eloquent)、
 [Blade Template](https://laravel.com/docs/11.x/blade#main-content)、
 [AltoRouter](https://github.com/dannyvankooten/AltoRouter) 整合而成的MVC框架。
