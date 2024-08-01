@@ -17,7 +17,7 @@ Route::get('/',function(){
 });
 
 Route::middleware('demo')->group(function(){  
-    //user
+    //Demo
     Route::prefix('/Demo',function(){
         Route::get('/',[DemoController::class, 'index']);
     });

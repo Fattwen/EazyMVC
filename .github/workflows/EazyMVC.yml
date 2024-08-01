@@ -1,0 +1,24 @@
+name: EazyMVC
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+      
+      - name: Validate PHP syntax
+        run: php -l public/index.php
+
+      - name: Run index.php
+        run: php public/index.php
