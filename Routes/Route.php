@@ -6,6 +6,9 @@ use Routes\Middleware\Middleware;
 class Route{
 
     protected static $prefix = '';
+
+    protected $private_prefix = '';
+
     public static $middleware = null;
     protected static $routes = [];
 
@@ -56,17 +59,25 @@ class Route{
         self::map('DELETE', $route, $callback);
     }
 
-    public static function prefix($prefix, $callback) {
-        $parentPrefix = self::$prefix;
-        self::$prefix = rtrim($parentPrefix, '/') . '/' . ltrim($prefix, '/');
-        
-        $callback();
-
-        self::$prefix = $parentPrefix; // 恢復原來的前綴
+    public function setPrefix($prefix){
+        $this->private_prefix = $prefix;
     }
 
-    public static function group($callback){
+    public static function prefix($prefix) {
+
+        $instance = new self();
+
+        $instance->setPrefix($prefix);
+
+        return $instance;
+    }
+
+    public function group($callback){
+
+        $parentPrefix = self::$prefix;
+        self::$prefix = rtrim($parentPrefix, '/') . '/' . ltrim($this->private_prefix, '/');
         $callback();
+        self::$prefix = $parentPrefix;
     }
 
     public static function notFound(){
@@ -81,8 +92,8 @@ class Route{
 
     public static function redirect($path)
     {
-        $path = "/".ltrim($path,"/");
-        header('Location: '.__basePath__.$path);
+        header('HTTP/1.1 301 Moved Permanently');
+        header('Location: '.$path);
         exit;
     }
 

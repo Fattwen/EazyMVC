@@ -12,8 +12,11 @@ define('__public__',__DIR__ . '/public');
 define('__basePath__',str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
 
 //讀取.env
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+try{
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
+
 
 require 'support.php';
 

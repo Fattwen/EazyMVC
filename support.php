@@ -36,6 +36,14 @@ if(!function_exists('public_path'))
     }
 }
 
+//url 輔助函式
+if(!function_exists('url'))
+{
+    function url($path){
+        return URL::asset($path);
+    }
+}
+
 //URL 輔助類別 (協定通用)
 class URL {
     public static function asset($path) {
@@ -43,7 +51,7 @@ class URL {
         $baseUrl = self::baseUrl();
 
         // 確保資源路徑的前綴是正確的
-        $path = ltrim($path, '/');
+        $path = "/".ltrim($path,"/");
 
         // 返回完整的資源 URL
         return $baseUrl.$path;

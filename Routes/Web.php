@@ -12,13 +12,12 @@ use Controllers\{
 };
 
 Route::get('/',function(){
-    //Route::redirect('/User');
     return "hello world";
 });
 
 Route::middleware('demo')->group(function(){  
     //Demo
-    Route::prefix('/Demo',function(){
+    Route::prefix('/Demo')->group(function(){
         Route::get('/',[DemoController::class, 'index']);
     });
 });
