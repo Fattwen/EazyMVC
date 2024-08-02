@@ -6,15 +6,16 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Dotenv\Dotenv;
 
 //blade & cahe foleder
-define('__viewPath__',__DIR__ . '/Views');
-define('__viewCachePath__',__DIR__ . '/Views/cache');
-define('__public__',__DIR__ . '/public');
-define('__basePath__',str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
+define('__viewPath__', __DIR__ . '/Views');
+define('__viewCachePath__', __DIR__ . '/Views/cache');
+define('__public__', __DIR__ . '/public');
+define('__basePath__', str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
 
 //讀取.env
-try{
+try {
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->load();
+} catch (Exception $e) {
 }
 
 
@@ -36,10 +37,9 @@ require 'database.php';
 global $capsule;
 $capsule = new Capsule;
 $default_db = 'default';
-foreach($database as $name => $db)
-{
+foreach ($database as $name => $db) {
     $default_db = $name;
-    $capsule->addConnection($db,$name);
+    $capsule->addConnection($db, $name);
 }
 $capsule->getDatabaseManager()->setDefaultConnection($default_db);
 $capsule->setAsGlobal();
@@ -51,8 +51,7 @@ require 'Routes/Web.php';
 //路由處理
 $match = $router->match($requestUri);
 
-if($match)
-{
+if ($match) {
     $routes = Route::getRoutes();
 
     foreach ($routes as $route) {
@@ -69,27 +68,23 @@ if($match)
                 $method = $match['target'][1];
                 $response = call_user_func_array([$controller, $method], $match['params']);
 
-                if(is_array($response))
-                {
+                if (is_array($response)) {
                     $response = json_encode($response);
                 }
                 echo $response;
 
-            } 
-            elseif (is_callable($match['target'])) {
+            } elseif (is_callable($match['target'])) {
                 $response = call_user_func_array($match['target'], $match['params']);
-                if(is_array($response))
-                {
+                if (is_array($response)) {
                     $response = json_encode($response);
                 }
                 echo $response;
-            } 
+            }
 
             return;
         }
     }
-}
-else {
-    // 沒有匹配到路由，返回 404 狀態碼
+} else {
+    // 沒有匹配到路由，返回 404 狀態碼 或是自定義
     Route::notFound();
 }

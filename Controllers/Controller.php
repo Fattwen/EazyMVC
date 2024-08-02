@@ -1,8 +1,6 @@
 <?php
 
 namespace Controllers;
-use Jenssegers\Blade\Blade;
-
 
 class Controller{
 

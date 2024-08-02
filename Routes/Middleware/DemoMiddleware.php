@@ -1,8 +1,6 @@
 <?php
 namespace Routes\Middleware;
 
-use Routes\Route;
-
 class DemoMiddleware{
 
     public function handle()
